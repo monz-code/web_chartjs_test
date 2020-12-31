@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Chart.js csv</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+
+<body>
+  <script type="text/javascript" src="js/drawChart.js"></script>
+  <input type="file" id="file">
+
+  <canvas id="myChart" width="400"" height="200"></canvas>
+  <script>
+  var result = [];
+  drawChart(result[0]);
+
+  let fileInput = document.getElementById('file');
+  let fileReader = new FileReader();
+  fileInput.onchange = () => {
+    let file = fileInput.files[0];
+    fileReader.readAsText(file);
+  };
+
+  //ファイルを読み取ったら実行
+  fileReader.onload = () => {
+    var txt = fileReader.result
+    console.log(txt);
+
+    //読み取ったcsvデータを配列に格納
+    var arr = txt.split("\n");
+    for(var i=0;i<arr.length;++i){
+      result[i] = arr[i].split(',');
+    }
+    drawChart(result[0]);
+    }
+  
+  </script>
+</body>
+
+</html>
